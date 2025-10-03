@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const connectToDb = require("./config/mongodb/database/db");
 
 // app instance
 const app = express();
@@ -14,3 +15,5 @@ const PORT = process.env.DEV_PORT;
 app.listen(PORT, () => {
   console.log(`Server instance is listening on PORT: ${PORT}`);
 });
+
+connectToDb();
