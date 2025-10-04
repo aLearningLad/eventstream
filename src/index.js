@@ -16,4 +16,17 @@ app.listen(PORT, () => {
   console.log(`Server instance is listening on PORT: ${PORT}`);
 });
 
-connectToDb();
+// recieve metadata info
+app.post("/metadata", (req, res) => {
+  const { event_id, s3_key, type, tags, uploaded_by, description } = req.body;
+
+  if (!event_id || !s3_key || !type || !tags || !uploaded_by || !description) {
+    console.log("Request body is incomplete. Please try again");
+    res
+      .status(400)
+      .json({
+        message:
+          "Request body is incomplete. Please try again and ensure all fields are complete",
+      });
+  }
+});
