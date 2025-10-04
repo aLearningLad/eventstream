@@ -1,12 +1,8 @@
 const express = require("express");
-const dotenv = require("dotenv");
-const connectToDb = require("./config/mongodb/database/db");
+const dotenv = require("dotenv").config(); // load up envs and make them usable
 
 // app instance
 const app = express();
-
-// load up envs and make them usable
-dotenv.config();
 
 // port
 const PORT = process.env.DEV_PORT;
@@ -17,16 +13,19 @@ app.listen(PORT, () => {
 });
 
 // recieve metadata info
-app.post("/metadata", (req, res) => {
+app.post("/api/v1/metadata", (req, res) => {
   const { event_id, s3_key, type, tags, uploaded_by, description } = req.body;
 
+  // handle any omissions by client
   if (!event_id || !s3_key || !type || !tags || !uploaded_by || !description) {
     console.log("Request body is incomplete. Please try again");
-    res
-      .status(400)
-      .json({
-        message:
-          "Request body is incomplete. Please try again and ensure all fields are complete",
-      });
+    res.status(400).json({
+      message:
+        "Request body is incomplete. Please try again and ensure all fields are complete",
+    });
   }
+
+  // if no client omissions, send data to mongodb (later this becomes: from this route's controller, send as kafka producer TO kafka consumer)
+  try {
+  } catch (error) {}
 });
