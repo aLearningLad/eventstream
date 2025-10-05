@@ -1,7 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv").config(); // load up envs and make them usable
 const connectToDb = require("./config/mongodb/database/db");
-const EventModel = require("./config/mongodb/models/event");
 const {
   uploadMetadataRoute,
 } = require("./routes/metadata_routes/upload.routes");
