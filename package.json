@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "docker": "docker-compose up -d",
+    "stop": "docker-compose down"
   },
   "keywords": [],
   "author": "",

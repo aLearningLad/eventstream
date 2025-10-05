@@ -1,4 +1,5 @@
 const EventModel = require("../../config/mongodb/models/event");
+const metadataToKafka = require("../../services/metadata/producer");
 
 const postMetadata = async (req, res) => {
   // destructure, pull out all values to be saved
@@ -21,8 +22,15 @@ const postMetadata = async (req, res) => {
       uploaded_by,
     });
 
-    await newMetadata.save();
-    return res.status(201).json({ success: "New metadata entry saved" });
+    const producerRespone = await metadataToKafka(newMetadata);
+
+    if (producerRespone == 200) {
+      return res.status(201).json({ success: "New metadata entry saved" });
+    } else {
+      return res
+        .status(500)
+        .json({ message: "Unable to send payload to Kafka" });
+    }
   } catch (error) {
     console.error(
       "An error occurred while trying to send metadata to MongoDB: ",

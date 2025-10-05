@@ -2,12 +2,10 @@ const kafka = require("../../config/kafka/kafka");
 
 const metadataToKafka = async (newMetadata) => {
   if (!newMetadata) {
-    return res
-      .status(400)
-      .json({ message: "No payload is available for upload" });
+    return 400;
   }
 
-  // no issues, proceed to send to kafka
+  // no issues, proceed to send to kafka maaate! Yup, yup yuuuup!
   const producer = kafka.producer();
 
   await producer.connect();
@@ -16,10 +14,13 @@ const metadataToKafka = async (newMetadata) => {
     topic: "upload-metadata",
     messages: [
       {
-        metadata: newMetadata,
+        value: JSON.stringify(newMetadata),
       },
     ],
   });
 
   await producer.disconnect();
+  return 200;
 };
+
+module.exports = metadataToKafka;
