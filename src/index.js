@@ -1,5 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv").config(); // load up envs and make them usable
+const connectToDb = require("./config/mongodb/database/db");
+const EventModel = require("./config/mongodb/models/event");
 
 // app instance
 const app = express();
@@ -14,6 +16,10 @@ const PORT = process.env.DEV_PORT;
 app.listen(PORT, () => {
   console.log(`Server instance is listening on PORT: ${PORT}`);
 });
+
+connectToDb().catch((err) =>
+  console.error("Unable to connect to mongoDB: ", err)
+);
 
 // general test
 app.get("/api/v1/metadata", (req, res) => {
@@ -34,6 +40,21 @@ app.post("/api/v1/metadata", (req, res) => {
     }
 
     // if no client omissions, send data to mongodb (later this becomes: from this route's controller, send as kafka producer TO kafka consumer)
+    const newMetadata = new EventModel({
+      description,
+      event_id,
+      s3_key,
+      type,
+      tags,
+      uploaded_by,
+    });
+
+    newMetadata
+      .save()
+      .then(() => console.log("New metadata entry saved"))
+      .catch((err) =>
+        console.error("Unable to save new metadata entry: ", err)
+      );
   } catch (error) {
     res.status(400).json({ message: `An error occured: ${error} ` });
     console.error(

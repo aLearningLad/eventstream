@@ -1,18 +1,19 @@
 const mongoose = require("mongoose");
 
 const connectToDb = async () => {
+  if (!process.env.MONGODB_URL) {
+    throw new Error("MongoDB connection string is missing!");
+  }
+
   try {
-    const res = await mongoose.createConnection(process.env.MONGODB_URL);
+    await mongoose.connect(process.env.MONGODB_URL);
 
-    if (res.ok) {
+    if (mongoose.connection.readyState === 1) {
       console.log("MongoDB is connected!");
-      return;
     }
-
-    throw new Error("Connection failed, bruv!");
   } catch (error) {
-    console.log("Unable to connect to MongoDB: ", error);
+    console.error("Unable to connect to MongoDB: ", error);
   }
 };
 
-module.exports = connectToDb();
+module.exports = connectToDb;
