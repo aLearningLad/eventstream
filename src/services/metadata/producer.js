@@ -1,7 +1,14 @@
 const kafka = require("../../config/kafka/kafka");
 
-const metadataToKafka = async (newMetadata) => {
-  if (!newMetadata) {
+const metadataToKafka = async ({
+  description,
+  event_id,
+  s3_key,
+  type,
+  tags,
+  uploaded_by,
+}) => {
+  if (!description || !event_id || !s3_key || !type || !tags || !uploaded_by) {
     return 400;
   }
 
@@ -14,7 +21,15 @@ const metadataToKafka = async (newMetadata) => {
     topic: "upload-metadata",
     messages: [
       {
-        value: JSON.stringify(newMetadata),
+        value: JSON.stringify({
+          description,
+          event_id,
+          s3_key,
+          type,
+          tags,
+          uploaded_by,
+        }),
+        // value: "Hi there!",
       },
     ],
   });

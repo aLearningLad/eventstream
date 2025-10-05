@@ -4,6 +4,7 @@ const connectToDb = require("./config/mongodb/database/db");
 const {
   uploadMetadataRoute,
 } = require("./routes/metadata_routes/upload.routes");
+require("./consumers/metadata/upload");
 
 // app instance
 const app = express();
