@@ -25,7 +25,7 @@ const signUpController = async (req, res) => {
       //   insert into postgresql
       const { error: user_reg_error } = await db.from("users").insert({
         full_name,
-        password,
+        password: hash,
         email,
         role,
       });
