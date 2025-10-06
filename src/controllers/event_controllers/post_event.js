@@ -1,5 +1,6 @@
 const handleEventUpload = async (req, res) => {
-  res.status(200).json({ message: "Yup, route was hit propaaa!" });
+  // recieve body & destructure
+  // call producer function and pass args
 };
 
 module.exports = handleEventUpload;
