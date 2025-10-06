@@ -40,6 +40,7 @@ router.post("/api/v1/sign-in", async (req, res) => {
     const hashed_password = password_from_db[0].password;
     bcrypt.compare(password, hashed_password, function (err, result) {
       if (result == true) {
+        // persist user
       } else {
         res.status(401).json({ message: "User credentials are incorrect" });
       }

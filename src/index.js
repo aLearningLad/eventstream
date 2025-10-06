@@ -9,11 +9,8 @@ const { uploadEventRoute } = require("./routes/event_routes/upload.routes");
 const { signUpRoute } = require("./routes/auth_routes/sign_up.route");
 const { signInRoute } = require("./routes/auth_routes/sign_in.route");
 const session = require("express-session");
-// const SQLiteStore = require("connect-sqlite3")(express);
-const crypto = require("crypto");
-
-const key = crypto.randomBytes(32).toString("hex"); // 64-character hex string
-console.log(key);
+const passport = require("passport");
+const SQLiteStore = require("better-sqlite3-session-store")(session);
 
 // app instance
 const app = express();
@@ -30,9 +27,18 @@ app.use((err, req, res, next) => {
 });
 
 // session support via passport.js
-// app.use(session({
-//   secret:
-// }))
+app.use(
+  session({
+    secret: process.env.POSTGRESQL_DB_URL,
+    resave: false,
+    saveUninitialized: false,
+    store: new SQLiteStore({
+      client: require("better-sqlite3")("./var/db/sessions.db"),
+    }),
+  })
+);
+
+app.use(passport.authenticate("session"));
 
 // port
 const PORT = process.env.DEV_PORT;
