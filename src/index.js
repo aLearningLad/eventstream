@@ -4,7 +4,8 @@ const connectToDb = require("./config/mongodb/database/db");
 const {
   uploadMetadataRoute,
 } = require("./routes/metadata_routes/upload.routes");
-require("./consumers/metadata/upload");
+const { uploadEventRoute } = require("./routes/event_routes/upload.routes");
+require("./consumers/metadata/upload"); // this starts up consumer
 
 // app instance
 const app = express();
@@ -20,14 +21,13 @@ app.listen(PORT, () => {
   console.log(`Server instance is listening on PORT: ${PORT}`);
 });
 
+// est. connection to mongoDb
 connectToDb().catch((err) =>
   console.error("Unable to connect to mongoDB: ", err)
 );
 
-// general test
-app.get("/api/v1/metadata", (req, res) => {
-  res.status(200).json({ message: "Ola, cabron!" });
-});
+// upload event info only
+app.use(uploadEventRoute);
 
-// recieve metadata info
+// upload metadata only
 app.use(uploadMetadataRoute);
