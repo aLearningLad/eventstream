@@ -1,9 +1,10 @@
-CREATE TYPE STATUS as ENUM ('confirmed', 'cancelled');
+CREATE TYPE TICKET_STATUS as ENUM ('confirmed', 'cancelled');
 
 CREATE TABLE tickets (
   ticket_id SERIAL PRIMARY KEY,
   event_id INT REFERENCES events(event_id) ON DELETE CASCADE,
   user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
   purchase_date TIMESTAMP DEFAULT NOW(),
+  status TICKET_STATUS DEFAULT 'confirmed' NOT NULL,
   UNIQUE (event_id, user_id)  --> no double bookings --> google correct synatx for this
 );
