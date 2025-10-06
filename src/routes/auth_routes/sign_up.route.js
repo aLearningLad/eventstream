@@ -40,6 +40,8 @@ router.post("/api/v1/sign-up", async (req, res) => {
           .status(500)
           .json({ message: "Unable to save new user: ", user_reg_error });
       }
+
+      return res.status(201).json({ message: "New user registered" });
     });
   });
 });
