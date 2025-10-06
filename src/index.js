@@ -5,7 +5,7 @@ const {
   uploadMetadataRoute,
 } = require("./routes/metadata_routes/upload.routes");
 const { uploadEventRoute } = require("./routes/event_routes/upload.routes");
-require("./consumers/metadata/upload"); // this starts up consumer
+// require("./consumers/metadata/upload"); // this starts up consumer
 const { signUpRoute } = require("./routes/auth_routes/sign_up.route");
 
 // app instance
