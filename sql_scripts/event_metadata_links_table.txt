@@ -1,0 +1,7 @@
+CREATE TABLE event_metadata_links (
+id SERIAL PRIMARY KEY,
+event_id INT REFERENCES events(event_id) ON DELETE CASCADE,
+mongo_id VARCHAR(100), --> this'll be the _objectId that mongoose attaches for me
+s3_key VARCHAR(100),
+created_at TIMESTAMP DEFAULT NOW()
+);
