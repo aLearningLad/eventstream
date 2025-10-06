@@ -1,0 +1,12 @@
+CREATE TABLE events (
+  event_id SERIAL PRIMARY KEY,
+  organizer_id INT REFERENCES organizers(organizer_id) ON DELETE CASCADE,
+  title VARCHAR(150) NOT NULL,
+  description TEXT NOT NULL,
+  location VARCHAR(150),
+  start_time TIMESTAMP,
+  end_time TIMESTAMP,
+  price DECIMAL(10,2),
+  capacity INT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+);
