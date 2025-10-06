@@ -10,7 +10,10 @@ const { signUpRoute } = require("./routes/auth_routes/sign_up.route");
 const { signInRoute } = require("./routes/auth_routes/sign_in.route");
 const session = require("express-session");
 const passport = require("passport");
+const { signOutRoute } = require("./routes/auth_routes/sign_out.route");
+const db_client = require("./config/postgresql/client");
 const SQLiteStore = require("better-sqlite3-session-store")(session);
+const db = db_client;
 
 // app instance
 const app = express();
@@ -48,6 +51,17 @@ app.listen(PORT, () => {
   console.log(`Server instance is listening on PORT: ${PORT}`);
 });
 
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  // get get a user from DB by ID
+  const { data } = await db.from("users").select("*").eq("user_id", id);
+  if (data.length === 0) return done(null, false);
+  done(null, data[0]);
+});
+
 // est. connection to mongoDb
 connectToDb().catch((err) =>
   console.error("Unable to connect to mongoDB: ", err)
@@ -55,10 +69,14 @@ connectToDb().catch((err) =>
 
 // ____________________________________ROUTES___________________________
 
+// sign in
 app.use(signInRoute);
 
 // sign up
 app.use(signUpRoute);
+
+// sign out
+app.use(signOutRoute);
 
 // upload event info only
 app.use(uploadEventRoute);
