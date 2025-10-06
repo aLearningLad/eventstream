@@ -8,6 +8,12 @@ const { uploadEventRoute } = require("./routes/event_routes/upload.routes");
 // require("./consumers/metadata/upload"); // this starts up consumer
 const { signUpRoute } = require("./routes/auth_routes/sign_up.route");
 const { signInRoute } = require("./routes/auth_routes/sign_in.route");
+const session = require("express-session");
+// const SQLiteStore = require("connect-sqlite3")(express);
+const crypto = require("crypto");
+
+const key = crypto.randomBytes(32).toString("hex"); // 64-character hex string
+console.log(key);
 
 // app instance
 const app = express();
@@ -22,6 +28,11 @@ app.use((err, req, res, next) => {
   }
   next();
 });
+
+// session support via passport.js
+// app.use(session({
+//   secret:
+// }))
 
 // port
 const PORT = process.env.DEV_PORT;
