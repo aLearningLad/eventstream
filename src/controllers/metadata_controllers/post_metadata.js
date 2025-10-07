@@ -12,17 +12,7 @@ const postMetadata = async (req, res) => {
   }
 
   try {
-    // if no client omissions, send data to mongodb (later this becomes: from this route's controller, send as kafka producer TO kafka consumer)
-    // const newMetadata = new EventModel({
-    //   description,
-    //   event_id,
-    //   s3_key,
-    //   type,
-    //   tags,
-    //   uploaded_by,
-    // });
-
-    const producerRespone = await metadataToKafka({
+    const producerResponse = await metadataToKafka({
       description,
       event_id,
       s3_key,
@@ -31,7 +21,7 @@ const postMetadata = async (req, res) => {
       uploaded_by,
     });
 
-    if (producerRespone == 200) {
+    if (producerResponse == 200) {
       return res.status(201).json({ success: "New metadata entry saved" });
     } else {
       return res

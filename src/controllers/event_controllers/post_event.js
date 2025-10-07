@@ -1,8 +1,32 @@
-const handleEventUpload = async (req, res) => {
+const eventToKafka = async (req, res) => {
   // recieve body & destructure
-  const {} = req.body;
+  const {
+    organizer_id,
+    title,
+    description,
+    location,
+    start_time,
+    end_time,
+    price,
+    capacity,
+  } = req.body;
+
+  // fields missing
+  if (
+    !organizer_id ||
+    !title ||
+    !description ||
+    !location ||
+    !start_time ||
+    !end_time ||
+    !price ||
+    !capacity
+  ) {
+    console.error("Event fields are incomplete");
+    return res.status(400).json({ message: "Fields are incomplete" });
+  }
 
   // call producer function and pass args
 };
 
-module.exports = handleEventUpload;
+module.exports = eventToKafka;
