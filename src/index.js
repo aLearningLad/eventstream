@@ -13,7 +13,17 @@ const passport = require("passport");
 const { signOutRoute } = require("./routes/auth_routes/sign_out.route");
 const db_client = require("./config/postgresql/client");
 const SQLiteStore = require("better-sqlite3-session-store")(session);
+const {
+  S3Client,
+  PutObjectCommand,
+  CreateBucketCommand,
+  DeleteObjectCommand,
+  DeleteBucketCommand,
+  paginateListObjectsV2,
+  GetObjectCommand,
+} = require("@aws-sdk/client-s3");
 const db = db_client;
+const s3Client = new S3Client({});
 
 // app instance
 const app = express();
