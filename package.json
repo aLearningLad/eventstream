@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
     "docker": "docker-compose up -d",
-    "stop": "docker-compose down"
+    "stop": "docker-compose down",
+    "aws_auth": "aws sso login --profile dev-sso"
   },
   "keywords": [],
   "author": "",
