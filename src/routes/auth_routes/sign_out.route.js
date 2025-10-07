@@ -1,12 +1,8 @@
 const express = require("express");
+const handleSignOut = require("../../controllers/auth_controllers/sign_out.route");
 
 const router = express.Router();
 
-router.post("/api/v1/sign-out", (req, res) => {
-  req.logOut((err) => {
-    if (err) return res.status(500).json({ maessage: "Sign out failed" });
-    req.session.destroy(() => res.json({ message: "Logged out" }));
-  });
-});
+router.post("/api/v1/sign-out", handleSignOut);
 
 module.exports = { signOutRoute: router };
