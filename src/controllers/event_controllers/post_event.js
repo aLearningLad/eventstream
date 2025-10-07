@@ -26,6 +26,7 @@ const eventToKafka = async (req, res) => {
     return res.status(400).json({ message: "Fields are incomplete" });
   }
 
+  res.status(200).json({ message: `Description is ${description}` });
   // call producer function and pass args
 };
 

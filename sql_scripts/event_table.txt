@@ -10,3 +10,6 @@ CREATE TABLE events (
   capacity INT NOT NULL,
   created_at TIMESTAMP DEFAULT NOW()
 );
+
+ALTER TABLE events
+ADD COLUMN date DATE NOT NULL;
