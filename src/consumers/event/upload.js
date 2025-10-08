@@ -1,4 +1,7 @@
 const kafka = require("../../config/kafka/kafka");
+const db_client = require("../../config/postgresql/client");
+
+const db = db_client;
 
 const startEventConsumer = async () => {
   const consumer = kafka.consumer({
@@ -13,7 +16,7 @@ const startEventConsumer = async () => {
   });
 
   await consumer.run({
-    eachMessage: async ({ topic, partition, messae }) => {
+    eachMessage: async ({ topic, partition, message }) => {
       const {
         organizer_id,
         title,
@@ -39,13 +42,18 @@ const startEventConsumer = async () => {
           date,
         });
         if (event_entry_error) throw new Error(event_entry_error.details);
-        return res.status(200).json({ message: "event details uploaded!" });
+        console.log("Event data successfully uploaded");
       } catch (error) {
         console.error("Unable to upload event data: ", error);
-        return res
-          .status(500)
-          .json({ message: "Kafka unable to upload event to postgreSQL" });
       }
     },
   });
 };
+
+startEventConsumer()
+  .then(() => {
+    console.log("Event upload consumer is running");
+  })
+  .catch((err) => {
+    console.error("Unable to start event upload consumer: ", err);
+  });

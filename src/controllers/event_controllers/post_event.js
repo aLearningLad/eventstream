@@ -47,7 +47,9 @@ const postEvent = async (req, res) => {
     });
 
     if (producerResponse == 200) {
-      return res.status(201).json({ success: "New event details entry saved" });
+      return res
+        .status(201)
+        .json({ success: "New event details sent to kafka" });
     } else {
       return res
         .status(500)

@@ -11,7 +11,8 @@
     "dev": "nodemon src/index.js",
     "docker": "docker-compose up -d",
     "stop": "docker-compose down",
-    "aws_auth": "aws sso login --profile dev-sso"
+    "aws_auth": "aws sso login --profile dev-sso",
+    "check_docker": "docker ps -a"
   },
   "keywords": [],
   "author": "",

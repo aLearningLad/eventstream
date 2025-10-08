@@ -42,7 +42,7 @@ const startConsumer = async () => {
 
 startConsumer()
   .then(() => {
-    console.log("Consumer is running");
+    console.log("Metadata upload consumer is running");
   })
   .catch((err) => {
     console.error("Unable to start consumer: ", err);
