@@ -15,19 +15,10 @@ const { signOutRoute } = require("./routes/auth_routes/sign_out.route");
 const db_client = require("./config/postgresql/client");
 const SQLiteStore = require("better-sqlite3-session-store")(session);
 const {
-  S3Client,
-  PutObjectCommand,
-  CreateBucketCommand,
-  DeleteObjectCommand,
-  DeleteBucketCommand,
-  paginateListObjectsV2,
-  GetObjectCommand,
-} = require("@aws-sdk/client-s3");
-const {
   uploadProjectRoute,
 } = require("./routes/project_routes/upload_project.route");
+const { uploadMediaRoute } = require("./routes/media_routes/upload.route");
 const db = db_client;
-const s3Client = new S3Client({});
 
 // app instance
 const app = express();
@@ -100,3 +91,6 @@ app.use(uploadEventRoute);
 
 // upload metadata only
 app.use(uploadMetadataRoute);
+
+// upload media only
+app.use(uploadMediaRoute);
