@@ -23,6 +23,9 @@ const {
   paginateListObjectsV2,
   GetObjectCommand,
 } = require("@aws-sdk/client-s3");
+const {
+  uploadProjectRoute,
+} = require("./routes/project_routes/upload_project.route");
 const db = db_client;
 const s3Client = new S3Client({});
 
@@ -89,7 +92,8 @@ app.use(signUpRoute);
 // sign out
 app.use(signOutRoute);
 
-//
+//upload entire project --> metadata, event info, visuals
+app.use(uploadProjectRoute);
 
 // upload event info only
 app.use(uploadEventRoute);
