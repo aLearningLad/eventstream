@@ -17,7 +17,7 @@ const SQLiteStore = require("better-sqlite3-session-store")(session);
 const {
   uploadProjectRoute,
 } = require("./routes/project_routes/upload_project.route");
-const { uploadMediaRoute } = require("./routes/media_routes/upload.route");
+const { uploadNewMediaRoute } = require("./routes/media_routes/upload.route");
 const db = db_client;
 
 // app instance
@@ -93,4 +93,23 @@ app.use(uploadEventRoute);
 app.use(uploadMetadataRoute);
 
 // upload media only
-app.use(uploadMediaRoute);
+app.use(uploadNewMediaRoute);
+
+// tester
+app.get("/test-aws-connection", async (req, res) => {
+  const https = require("https");
+
+  https
+    .get("https://s3.us-east-1.amazonaws.com", (response) => {
+      res.json({
+        message: "AWS connection successful!",
+        statusCode: response.statusCode,
+      });
+    })
+    .on("error", (error) => {
+      res.status(500).json({
+        message: "Connection failed",
+        error: error.message,
+      });
+    });
+});
