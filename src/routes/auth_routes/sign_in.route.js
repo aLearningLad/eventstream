@@ -1,13 +1,10 @@
 const express = require("express");
-const passport = require("passport");
-const localStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 const db_client = require("../../config/postgresql/client");
-const ensureAuth = require("../../middleware/is_authenticated");
 const router = express.Router();
 const db = db_client;
 
-router.post("/api/v1/sign-in", ensureAuth, async (req, res) => {
+router.post("/api/v1/sign-in", async (req, res) => {
   try {
     if (!req.body || Object.keys(req.body).length === 0) {
       return res
