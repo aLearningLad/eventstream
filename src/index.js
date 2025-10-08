@@ -5,8 +5,8 @@ const {
   uploadMetadataRoute,
 } = require("./routes/metadata_routes/upload.routes");
 const { uploadEventRoute } = require("./routes/event_routes/upload.routes");
-require("./consumers/metadata/upload"); // this starts up metadata upload consumer
-require("./consumers/event/upload"); //this starts up event upload consumer
+// require("./consumers/metadata/upload"); // this starts up metadata upload consumer
+// require("./consumers/event/upload"); //this starts up event upload consumer
 const { signUpRoute } = require("./routes/auth_routes/sign_up.route");
 const { signInRoute } = require("./routes/auth_routes/sign_in.route");
 const session = require("express-session");
@@ -77,9 +77,9 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // est. connection to mongoDb
-connectToDb().catch((err) =>
-  console.error("Unable to connect to mongoDB: ", err)
-);
+// connectToDb().catch((err) =>
+//   console.error("Unable to connect to mongoDB: ", err)
+// );
 
 // ____________________________________ROUTES___________________________
 
