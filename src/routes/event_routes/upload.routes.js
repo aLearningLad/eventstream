@@ -1,8 +1,8 @@
 const express = require("express");
-const eventToKafka = require("../../controllers/event_controllers/post_event");
+const postEvent = require("../../controllers/event_controllers/post_event");
 
 const router = express.Router();
 
-router.post("/api/v1/event", eventToKafka);
+router.post("/api/v1/event", postEvent);
 
 module.exports = { uploadEventRoute: router };
