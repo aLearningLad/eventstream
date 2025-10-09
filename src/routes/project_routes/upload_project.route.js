@@ -1,3 +1,5 @@
+const db_client = require("../../config/postgresql/client");
+
 const router = require("express").Router();
 
 router.post("/api/v1/new-project", async (req, res) => {
@@ -17,16 +19,29 @@ router.post("/api/v1/new-project", async (req, res) => {
   // ----- collect all info
 
   // ------------ call producers ---------------
+  try {
+    // 1. postgreSQL -> events table -> return event_id
+    const db = db_client();
+    const { data: event_id_data, error: event_id_data_error } = await db
+      .from("events")
+      .insert({
+        title,
+        description,
+        location,
+        start_time,
+        end_time,
+        price,
+        capacity,
+        date,
+      })
+      .select("event_id");
 
-  // 1. postgresql event producer ---> this returns event_id from it's consumer
+    if (event_id_data_error) throw new Error(event_id_data_error.details);
 
-  // 2. aws s3 media files producer ---> await event_id from 1. This returns s3 key from it's consumer
+    // ------------ call producers ----------------
 
-  // 3. mongodb metadata producer ---> await event_id from 1. AND await s3_key from 2. returns mongo_id
-
-  // ------------ call producers ----------------
-
-  res.status(200).json({ message: "Yessir, this endpoint works!" });
+    res.status(200).json({ message: "Yessir, this endpoint works!" });
+  } catch (error) {}
 });
 
 module.exports = { uploadProjectRoute: router };

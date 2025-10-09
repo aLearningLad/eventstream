@@ -36,19 +36,9 @@ const postMedia = async (req, res) => {
   }
 
   // const s3_bucket_id = cryptoKey + Date.now().toString();
-  const bucket_name = `eventstream-${organizer_id}`; // --> remember, I created bucket once and then removed the code
+  const bucket_name = `eventstream-app-kingmaker08`; // --> remember, I created bucket once and then removed the code
 
   try {
-    //  create bucket
-    await s3Client.send(
-      new CreateBucketCommand({
-        Bucket: bucket_name,
-        CreateBucketConfiguration: {
-          LocationConstraint: "eu-north-1",
-        },
-      })
-    );
-
     // add file to this bucket
     await s3Client.send(
       new PutObjectCommand({

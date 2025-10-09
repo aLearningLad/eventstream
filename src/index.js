@@ -94,22 +94,3 @@ app.use(uploadMetadataRoute);
 
 // upload media only
 app.use(uploadNewMediaRoute);
-
-// tester
-app.get("/test-aws-connection", async (req, res) => {
-  const https = require("https");
-
-  https
-    .get("https://s3.us-east-1.amazonaws.com", (response) => {
-      res.json({
-        message: "AWS connection successful!",
-        statusCode: response.statusCode,
-      });
-    })
-    .on("error", (error) => {
-      res.status(500).json({
-        message: "Connection failed",
-        error: error.message,
-      });
-    });
-});
