@@ -46,6 +46,8 @@ const postProjectController = async (req, res) => {
   // END -----account for missing info
 
   // ------------ call producers ---------------
+
+  const reply_to = "project-metadata-links"; // topic name for the metadata upload!
   try {
     // 1. postgreSQL -> events table -> return event_id
     const db = db_client;
