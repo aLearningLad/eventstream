@@ -1,4 +1,6 @@
 const db_client = require("../../config/postgresql/client");
+const mongo = require("../../config/mongodb/database/db");
+const mongo_model = require("../../config/mongodb/models/event");
 
 const router = require("express").Router();
 
@@ -14,6 +16,7 @@ router.post("/api/v1/new-project", async (req, res) => {
     price,
     capacity,
     date,
+    images,
   } = req.body;
   // ----- collect all info
 
@@ -31,7 +34,6 @@ router.post("/api/v1/new-project", async (req, res) => {
   ) {
     throw new Error("Required fields are missing");
   }
-
   // -----account for missing info
 
   // ------------ call producers ---------------
@@ -54,6 +56,16 @@ router.post("/api/v1/new-project", async (req, res) => {
       .select("event_id");
 
     if (event_id_data_error) throw new Error(event_id_data_error.details);
+    const event_id = await event_id_data[0].event_id;
+    // 1. postgreSQL -> events table -> return event_id
+
+    // 2. upload mongo_db metadata
+    // const s3_key =  ----> RESUME FROM HERE!!
+    const doc = new mongo_model({
+      description: description,
+      event_id,
+      s3_key,
+    });
 
     // ------------ call producers ----------------
 
