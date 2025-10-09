@@ -1,29 +1,5 @@
-const {
-  S3Client,
-  PutObjectCommand,
-  CreateBucketCommand,
-  DeleteObjectCommand,
-  DeleteBucketCommand,
-  paginateListObjectsV2,
-  GetObjectCommand,
-} = require("@aws-sdk/client-s3");
+const s3Client = require("../../config/aws/s3_client");
 const generateKey = require("../../utils/generate_key");
-const https = require("https");
-
-const s3Client = new S3Client({
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_APP_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_APP_SECRET_ACCESS_KEY,
-  },
-
-  requestHandler: {
-    httpsAgent: new https.Agent({
-      keepAlive: true,
-      family: 4, // Force IPv4
-    }),
-  },
-});
 
 const postMedia = async (req, res) => {
   const cryptoKey = generateKey();
@@ -36,7 +12,7 @@ const postMedia = async (req, res) => {
   }
 
   // const s3_bucket_id = cryptoKey + Date.now().toString();
-  const bucket_name = `eventstream-app-kingmaker08`; // --> remember, I created bucket once and then removed the code
+  const bucket_name = process.env.AWS_S3_BUCKET_NAME; // --> remember, I created bucket once and then removed the code
 
   try {
     // add file to this bucket
