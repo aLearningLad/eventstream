@@ -49,4 +49,6 @@ const projectEventToKafka = async ({
       },
     ],
   });
+
+  await producer.disconnect();
 };
