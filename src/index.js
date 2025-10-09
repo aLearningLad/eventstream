@@ -68,9 +68,9 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // est. connection to mongoDb
-// connectToDb().catch((err) =>
-//   console.error("Unable to connect to mongoDB: ", err)
-// );
+connectToDb().catch((err) =>
+  console.error("Unable to connect to mongoDB: ", err)
+);
 
 // ____________________________________ROUTES___________________________
 
