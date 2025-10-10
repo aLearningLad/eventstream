@@ -37,23 +37,6 @@ const startPorjectEventConsumer = async () => {
         date,
       } = JSON.parse(message.value.toString());
 
-      console.log(
-        "fields available to consumer: ",
-        company_name,
-        image_data,
-        type,
-        tags,
-        reply_to,
-        organizer_id,
-        title,
-        description,
-        location,
-        start_time,
-        end_time,
-        price,
-        capacity,
-        date
-      );
       try {
         // 1. sql events upload
         const { data: event_id_data, error: event_entry_error } = await db
@@ -98,8 +81,21 @@ const startPorjectEventConsumer = async () => {
             Body: image_buffer,
           })
         );
+
+        // 4. metadata upload
+        const { error: event_metadata_upload_error } = await db
+          .from("event_metadata_links")
+          .insert({
+            event_id,
+            mongo_id,
+            s3_key,
+          });
+
+        if (event_metadata_upload_error) {
+          throw new Error(event_metadata_upload_error);
+        }
       } catch (error) {
-        console.error("Unable to upload event: ", event_entry_error);
+        console.error("Unable to upload event: ", error);
       }
     },
   });
