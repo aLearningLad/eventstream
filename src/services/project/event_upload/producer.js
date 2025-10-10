@@ -11,6 +11,8 @@ const projectEventToKafka = async ({
   price,
   capacity,
   date,
+  tags,
+  reply_to,
 }) => {
   // handle ommissions
   if (
