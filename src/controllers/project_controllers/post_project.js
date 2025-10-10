@@ -7,13 +7,67 @@ const projectEventToKafka = require("../../services/project/event_upload/produce
 const cryptoKey = generateKey();
 
 const postProjectController = async (req, res) => {
-  // const result = await projectEventToKafka({ organizer_id, s3_key });
+  // no request body
+  if (!req.body) {
+    return res.status(400).json({ message: "Request body is missing" });
+  }
 
-  // if (result === 200) {
-  //   res.status(200).json({ message: "Payload delivered to producer" });
-  // }
-  console.log("Post project route hit!");
-  return res.status(200).json({ message: "Endpoint reached!" });
+  // no image file
+  if (!req.file) {
+    return res.status(400).json({ message: "Image file is missing" });
+  }
+
+  // gather values
+  const {
+    organizer_id,
+    title,
+    description,
+    location,
+    start_time,
+    end_time,
+    price,
+    capacity,
+    date,
+  } = req.body;
+  const image_data = req.file.buffer;
+
+  // ommissions
+  if (
+    !organizer_id ||
+    !title ||
+    !description ||
+    !location ||
+    !start_time ||
+    !end_time ||
+    !price ||
+    !capacity ||
+    !date
+  ) {
+    console.error("postProjectController: Missing fields from client");
+    return res.status(400).json({ message: "Missing values from client" });
+  }
+
+  try {
+    // call producer
+    const result = await projectEventToKafka({
+      organizer_id,
+      title,
+      description,
+      location,
+      start_time,
+      end_time,
+      price,
+      capacity,
+      date,
+    });
+
+    if (result === 400) {
+      throw new Error("Missing fields from client");
+    }
+  } catch (error) {
+    console.error("Unable to send payload to kafka: ", error);
+    return res.json(400).json({ message: "Unable to send fields to kafka" });
+  }
 };
 
 module.exports = postProjectController;
