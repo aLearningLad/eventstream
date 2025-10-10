@@ -1,3 +1,6 @@
+process.on("uncaughtException", console.error);
+process.on("unhandledRejection", console.error);
+
 const express = require("express");
 const dotenv = require("dotenv").config(); // load up envs and make them usable
 const connectToDb = require("./config/mongodb/database/db");
@@ -15,10 +18,10 @@ const passport = require("passport");
 const { signOutRoute } = require("./routes/auth_routes/sign_out.route");
 const db_client = require("./config/postgresql/client");
 const SQLiteStore = require("better-sqlite3-session-store")(session);
+const { uploadNewMediaRoute } = require("./routes/media_routes/upload.route");
 const {
   uploadProjectRoute,
 } = require("./routes/project_routes/upload_project.route");
-const { uploadNewMediaRoute } = require("./routes/media_routes/upload.route");
 const db = db_client;
 
 // app instance
