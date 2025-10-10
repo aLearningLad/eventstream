@@ -1,6 +1,8 @@
 const kafka = require("../../../config/kafka/kafka");
 
 const projectEventToKafka = async ({
+  image_data,
+  company_name,
   tags,
   type,
   organizer_id,
@@ -15,6 +17,8 @@ const projectEventToKafka = async ({
 }) => {
   // ommissions
   if (
+    !image_data ||
+    !company_name ||
     !type ||
     !tags ||
     !organizer_id ||
@@ -31,7 +35,7 @@ const projectEventToKafka = async ({
   }
 
   const reply_to = "project-event-upload";
-  const correleation_id = ""; //come back to this
+  const correlation_id = ""; //come back to this
 
   const producer = kafka.producer();
 
@@ -42,6 +46,7 @@ const projectEventToKafka = async ({
     messages: [
       {
         value: JSON.stringify({
+          image_data,
           type,
           tags,
           reply_to,

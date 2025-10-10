@@ -25,12 +25,12 @@ const postMedia = async (req, res) => {
     );
 
     // try sending it back as res
-    const { Body } = await s3Client.send(
-      new GetObjectCommand({
-        Bucket: bucket_name,
-        Key: "first.txt",
-      })
-    );
+    // const { Body } = await s3Client.send(
+    //   new GetObjectCommand({
+    //     Bucket: bucket_name,
+    //     Key: "first.txt",
+    //   })
+    // );
 
     if (Body) {
       const bodyString = await Body.transformToString();
