@@ -1,10 +1,11 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const db_client = require("../../config/postgresql/client");
+const auth_limiter = require("../../middleware/auth_rate_limiting");
 const router = express.Router();
 const db = db_client;
 
-router.post("/api/v1/sign-in", async (req, res) => {
+router.post("/api/v1/sign-in", auth_limiter, async (req, res) => {
   try {
     if (!req.body || Object.keys(req.body).length === 0) {
       return res

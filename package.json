@@ -25,6 +25,7 @@
     "better-sqlite3-session-store": "^0.1.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
     "express-session": "^1.18.2",
     "kafkajs": "^2.2.4",
     "mongodb": "^6.20.0",
