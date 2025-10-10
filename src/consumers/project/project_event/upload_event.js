@@ -21,8 +21,8 @@ const startPorjectEventConsumer = async () => {
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       const {
-        image_data,
         company_name,
+        image_data,
         type,
         tags,
         reply_to,
@@ -37,6 +37,23 @@ const startPorjectEventConsumer = async () => {
         date,
       } = JSON.parse(message.value.toString());
 
+      console.log(
+        "fields available to consumer: ",
+        company_name,
+        image_data,
+        type,
+        tags,
+        reply_to,
+        organizer_id,
+        title,
+        description,
+        location,
+        start_time,
+        end_time,
+        price,
+        capacity,
+        date
+      );
       try {
         // 1. sql events upload
         const { data: event_id_data, error: event_entry_error } = await db
@@ -69,15 +86,16 @@ const startPorjectEventConsumer = async () => {
           uploaded_by: organizer_id,
         });
         const metadata = await doc.save();
-        const mongo_id = await metadata._id;
+        const mongo_id = metadata._id;
 
         // 3. aws s3 upload
         const bucket_name = process.env.AWS_S3_BUCKET_NAME;
+        const image_buffer = Buffer.from(image_data.data);
         await s3Client.send(
           new PutObjectCommand({
-            Bucket: bucket_name,
+            Bucket: "eventstream-app-kingmaker08",
             Key: s3_key,
-            Body: image_data,
+            Body: image_buffer,
           })
         );
       } catch (error) {

@@ -34,7 +34,7 @@ const projectEventToKafka = async ({
     return 400;
   }
 
-  const reply_to = "project-event-upload";
+  const reply_to = "upload-project-event";
   const correlation_id = ""; //come back to this
 
   const producer = kafka.producer();
@@ -46,6 +46,7 @@ const projectEventToKafka = async ({
     messages: [
       {
         value: JSON.stringify({
+          company_name,
           image_data,
           type,
           tags,

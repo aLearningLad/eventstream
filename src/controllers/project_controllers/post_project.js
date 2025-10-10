@@ -53,10 +53,28 @@ const postProjectController = async (req, res) => {
     console.error("postProjectController: Missing fields from client");
     return res.status(400).json({ message: "Missing values from client" });
   }
+  // else {
+  //   console.log(
+  //     "Request body values here: ",
+  //     company_name,
+  //     tags,
+  //     type,
+  //     organizer_id,
+  //     title,
+  //     description,
+  //     location,
+  //     start_time,
+  //     end_time,
+  //     price,
+  //     capacity,
+  //     date
+  //   );
+  // }
 
   try {
     // call producer
     const result = await projectEventToKafka({
+      company_name,
       image_data,
       type,
       tags,
