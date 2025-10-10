@@ -3,6 +3,7 @@ const mongo_model = require("../../config/mongodb/models/event");
 const generateKey = require("../../utils/generate_key");
 const s3Client = require("../../config/aws/s3_client");
 const { PutObjectCommand } = require("@aws-sdk/client-s3");
+const projectEventToKafka = require("../../services/project/event_upload/producer");
 const cryptoKey = generateKey();
 
 const postProjectController = async (req, res) => {
@@ -49,41 +50,63 @@ const postProjectController = async (req, res) => {
 
   const reply_to = "project-metadata-links"; // topic name for the metadata upload!
   try {
-    // 1. postgreSQL -> events table -> return event_id
-    const db = db_client;
-    const { data: event_id_data, error: event_id_data_error } = await db
-      .from("events")
-      .insert({
-        organizer_id,
-        title,
-        description,
-        location,
-        start_time,
-        end_time,
-        price,
-        capacity,
-        date,
-      })
-      .select("event_id");
+    const s3_key = `${company_name}/${cryptoKey}-${organizer_id}`;
 
-    if (event_id_data_error) throw new Error(event_id_data_error.message);
-    const event_id = await event_id_data[0].event_id;
+    const res = await projectEventToKafka(
+      tags,
+      s3_key,
+      reply_to,
+      organizer_id,
+      title,
+      description,
+      location,
+      start_time,
+      end_time,
+      price,
+      capacity,
+      date
+    );
+
+    if (res === 400) {
+      res.status(400).json({
+        message: "Unable to send event and metadata payload to consumer",
+      });
+    }
+
+    // 1. postgreSQL -> events table -> return event_id
+    // const db = db_client;
+    // const { data: event_id_data, error: event_id_data_error } = await db
+    //   .from("events")
+    //   .insert({
+    //     organizer_id,
+    //     title,
+    //     description,
+    //     location,
+    //     start_time,
+    //     end_time,
+    //     price,
+    //     capacity,
+    //     date,
+    //   })
+    //   .select("event_id");
+
+    // if (event_id_data_error) throw new Error(event_id_data_error.message);
+    // const event_id = await event_id_data[0].event_id;
     // END: 1. postgreSQL -> events table -> return event_id
 
     // 2. upload mongo_db metadata
-    const s3_key = `${company_name}/${cryptoKey}-${organizer_id}`;
-    const doc = new mongo_model({
-      description: description,
-      event_id,
-      s3_key,
-      tags,
-      type,
-      uploaded_by: organizer_id,
-    });
+    // const doc = new mongo_model({
+    //   description: description,
+    //   event_id,
+    //   s3_key,
+    //   tags,
+    //   type,
+    //   uploaded_by: organizer_id,
+    // });
 
-    const mongo_result = await doc.save();
+    // const mongo_result = await doc.save();
 
-    const mongo_id = await mongo_result._id;
+    // const mongo_id = await mongo_result._id;
 
     // END: 2. upload mongo_db metadata
 

@@ -1,6 +1,6 @@
 const kafka = require("../../../config/kafka/kafka");
 const db_client = require("../../../config/postgresql/client");
-
+const metadata_model = require("../../../config/mongodb/models/event");
 const db = db_client;
 
 const startPorjectEventConsumer = async () => {
@@ -18,6 +18,9 @@ const startPorjectEventConsumer = async () => {
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       const {
+        uploaded_by,
+        type,
+        tags,
         reply_to,
         organizer_id,
         title,
@@ -48,14 +51,35 @@ const startPorjectEventConsumer = async () => {
           .select("event_id");
 
         if (event_entry_error) throw new Error(event_entry_error);
+        const event_id = await event_id_data[0].event_id;
 
         // mongo upload
+        const doc = new metadata_model({
+          description,
+          event_id,
+          s3_key,
+          tags,
+          type,
+          uploaded_by: organizer_id,
+        });
+
+        const mongo_result = await doc.save();
+
+        const mongo_id = mongo_result._id;
 
         //   publish event_id(postgreSQL) and object_id(mongo) to event_metadata_links
-        const event_id = await event_id_data[0].event_id;
+        //   DO HERE!
       } catch (error) {
         console.log("Unable to upload event: ", event_entry_error);
       }
     },
   });
 };
+
+startPorjectEventConsumer()
+  .then(() => {
+    console.log("Project event consumer is running");
+  })
+  .catch((err) => {
+    console.error("Unable to start project event upload consumer");
+  });

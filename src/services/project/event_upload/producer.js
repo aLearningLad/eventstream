@@ -1,6 +1,7 @@
 const kafka = require("../../../config/kafka/kafka");
 
 const projectEventToKafka = async ({
+  s3_key,
   organizer_id,
   title,
   description,
@@ -13,6 +14,7 @@ const projectEventToKafka = async ({
 }) => {
   // handle ommissions
   if (
+    !s3_key ||
     !organizer_id ||
     !title ||
     !description ||
@@ -31,12 +33,14 @@ const projectEventToKafka = async ({
 
   await producer.connect();
 
-  const result = await producer.send({
+  await producer.send({
     topic: "upload-project-event",
 
     messages: [
       {
         value: JSON.stringify({
+          tags,
+          s3_key,
           reply_to,
           organizer_id,
           title,
@@ -53,5 +57,7 @@ const projectEventToKafka = async ({
   });
 
   await producer.disconnect();
-  return result;
+  return 200;
 };
+
+module.exports = projectEventToKafka;
