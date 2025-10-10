@@ -38,7 +38,7 @@ const projectEventToKafka = async ({
   await producer.connect();
 
   await producer.send({
-    topic: "project-event-upload",
+    topic: "upload-project-event",
     messages: [
       {
         value: JSON.stringify({
