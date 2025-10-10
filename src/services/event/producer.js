@@ -57,7 +57,7 @@ const eventToKafka = async ({
     ],
   });
 
-  await producer.disconnect();
+  // await producer.disconnect(); ----> this is expensive. Don't disconnect on every send. Rather let it disconnect itself on app shutdown
   return 200;
 };
 

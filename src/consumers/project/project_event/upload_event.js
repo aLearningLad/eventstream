@@ -18,7 +18,6 @@ const startPorjectEventConsumer = async () => {
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       const {
-        uploaded_by,
         type,
         tags,
         reply_to,

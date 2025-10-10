@@ -1,6 +1,8 @@
 const kafka = require("../../../config/kafka/kafka");
 
 const projectEventToKafka = async ({
+  tags,
+  type,
   organizer_id,
   title,
   description,
@@ -13,6 +15,8 @@ const projectEventToKafka = async ({
 }) => {
   // ommissions
   if (
+    !type ||
+    !tags ||
     !organizer_id ||
     !title ||
     !description ||
@@ -26,6 +30,9 @@ const projectEventToKafka = async ({
     return 400;
   }
 
+  const reply_to = "project-event-upload";
+  const correleation_id = ""; //come back to this
+
   const producer = kafka.producer();
 
   await producer.connect();
@@ -35,7 +42,6 @@ const projectEventToKafka = async ({
     messages: [
       {
         value: JSON.stringify({
-          uploaded_by,
           type,
           tags,
           reply_to,
@@ -53,6 +59,7 @@ const projectEventToKafka = async ({
     ],
   });
 
+  // await producer.disconnect(); ---> this is expensive. Don't disconnect. Rather let it disconnect automatically on app shut down
   return 200;
 };
 

@@ -19,6 +19,8 @@ const postProjectController = async (req, res) => {
 
   // gather values
   const {
+    tags,
+    type,
     organizer_id,
     title,
     description,
@@ -33,6 +35,8 @@ const postProjectController = async (req, res) => {
 
   // ommissions
   if (
+    !type ||
+    !tags ||
     !organizer_id ||
     !title ||
     !description ||
@@ -50,6 +54,8 @@ const postProjectController = async (req, res) => {
   try {
     // call producer
     const result = await projectEventToKafka({
+      type,
+      tags,
       organizer_id,
       title,
       description,
