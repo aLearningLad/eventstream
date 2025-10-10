@@ -1,6 +1,10 @@
 const kafka = require("../../config/kafka/kafka");
 
 const eventToKafka = async ({
+  uploaded_by,
+  type,
+  tags,
+  reply_to,
   organizer_id,
   title,
   description,
@@ -12,6 +16,10 @@ const eventToKafka = async ({
   date,
 }) => {
   if (
+    !uploaded_by ||
+    !type ||
+    !tags ||
+    !reply_to ||
     !organizer_id ||
     !title ||
     !description ||

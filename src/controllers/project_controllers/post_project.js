@@ -64,6 +64,10 @@ const postProjectController = async (req, res) => {
     if (result === 400) {
       throw new Error("Missing fields from client");
     }
+
+    if (result === 200) {
+      return res.status(200).json({ success: "Payload sent to consumer" });
+    }
   } catch (error) {
     console.error("Unable to send payload to kafka: ", error);
     return res.json(400).json({ message: "Unable to send fields to kafka" });

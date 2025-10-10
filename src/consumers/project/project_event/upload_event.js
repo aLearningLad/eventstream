@@ -35,38 +35,33 @@ const startPorjectEventConsumer = async () => {
 
       try {
         //   SQL upload
-        const { data: event_id_data, error: event_entry_error } = await db
-          .from("events")
-          .insert({
-            organizer_id,
-            title,
-            description,
-            location,
-            start_time,
-            end_time,
-            price,
-            capacity,
-            date,
-          })
-          .select("event_id");
-
-        if (event_entry_error) throw new Error(event_entry_error);
-        const event_id = await event_id_data[0].event_id;
-
+        // const { data: event_id_data, error: event_entry_error } = await db
+        //   .from("events")
+        //   .insert({
+        //     organizer_id,
+        //     title,
+        //     description,
+        //     location,
+        //     start_time,
+        //     end_time,
+        //     price,
+        //     capacity,
+        //     date,
+        //   })
+        //   .select("event_id");
+        // if (event_entry_error) throw new Error(event_entry_error);
+        // const event_id = await event_id_data[0].event_id;
         // mongo upload
-        const doc = new metadata_model({
-          description,
-          event_id,
-          s3_key,
-          tags,
-          type,
-          uploaded_by: organizer_id,
-        });
-
-        const mongo_result = await doc.save();
-
-        const mongo_id = mongo_result._id;
-
+        // const doc = new metadata_model({
+        //   description,
+        //   event_id,
+        //   s3_key,
+        //   tags,
+        //   type,
+        //   uploaded_by: organizer_id,
+        // });
+        // const mongo_result = await doc.save();
+        // const mongo_id = mongo_result._id;
         //   publish event_id(postgreSQL) and object_id(mongo) to event_metadata_links
         //   DO HERE!
       } catch (error) {
