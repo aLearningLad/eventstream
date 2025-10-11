@@ -32,7 +32,7 @@ router.post(
         .status(500)
         .json({ message: "Unable to subscribe to waiting list" });
     }
-    return res.status(200).json({ success: "waiting list route works!" });
+    return res.status(201).json({ success: "Subscribed to waiting list" });
   }
 );
 
