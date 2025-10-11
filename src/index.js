@@ -26,6 +26,9 @@ const { attendeeSignUpRoute } = require("./routes/attendee_routes/sign_up");
 const {
   joinWaitingListRoute,
 } = require("./routes/attendee_routes/join_waitlist");
+const {
+  retrieveProjectRoute,
+} = require("./routes/project_routes/get_project.route");
 const db = db_client;
 
 // app instance

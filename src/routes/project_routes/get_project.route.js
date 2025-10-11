@@ -9,3 +9,5 @@ router.get("/api/v1/event/:event-id", async (req, res) => {
 
   res.status(200).json({ success: `Event ID from params is ${event_id}` });
 });
+
+module.exports = { retrieveProjectRoute: router };
