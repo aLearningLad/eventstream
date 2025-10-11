@@ -22,6 +22,7 @@ const { uploadNewMediaRoute } = require("./routes/media_routes/upload.route");
 const {
   uploadProjectRoute,
 } = require("./routes/project_routes/upload_project.route");
+const { attendeeSignUpRoute } = require("./routes/attendee_routes/sign_up");
 const db = db_client;
 
 // app instance
@@ -98,3 +99,6 @@ app.use(uploadMetadataRoute);
 
 // upload media only
 app.use(uploadNewMediaRoute);
+
+// attendee sign up
+app.use(attendeeSignUpRoute);
