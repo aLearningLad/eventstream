@@ -29,6 +29,9 @@ const {
 const {
   retrieveProjectRoute,
 } = require("./routes/project_routes/get_project.route");
+const {
+  attendeePurchaseTicketRoute,
+} = require("./routes/attendee_routes/purchase_ticket");
 const db = db_client;
 
 // app instance
@@ -114,3 +117,6 @@ app.use(joinWaitingListRoute);
 
 // organizer retrieve all event info
 app.use(retrieveProjectRoute);
+
+// attendee purchase ticket
+app.use(attendeePurchaseTicketRoute);
