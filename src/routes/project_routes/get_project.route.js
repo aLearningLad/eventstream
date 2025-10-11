@@ -2,6 +2,7 @@ const router = require("express").Router();
 const sqldb = require("../../config/postgresql/client");
 const mongoose = require("mongoose");
 const aws = require("../../config/aws/s3_client");
+const metadata_model = require("../../config/mongodb/models/event");
 
 const postgresql = sqldb;
 
@@ -29,29 +30,29 @@ router.get("/api/v1/event/:event_id", async (req, res) => {
         .from("events")
         .select(`*, event_metadata_links(*), waitlist(*), tickets(*)`)
         .eq("event_id", event_id);
-    // .eq("organizer_id", organizer_id);
 
     if (combined_sql_data_error) {
       throw new Error(combined_sql_data_error);
     }
 
     if (combined_sql_data.length === 0) {
-      return res.status(200).json({ message: "No data found for this user" });
+      return res
+        .status(200)
+        .json({ message: "No relevant data found for this event nor user" });
     }
 
+    const mongo_id = await combined_sql_data[0].event_metadata_links[0]
+      .mongo_id;
+
     // 2. fetch mongo metadata
+    const doc = await metadata_model.findById(mongo_id);
 
     // 3. fetch aws s3 media
-
-    console.log("The requested data here: ", combined_sql_data);
-    console.log(
-      "metadata links data here: ",
-      combined_sql_data[0].event_metadata_links
-    );
 
     return res.status(200).json({
       success: "Data found",
       core_event_data: combined_sql_data,
+      metadata: doc,
       media_files: "coming soon",
     });
   } catch (error) {
