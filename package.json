@@ -6,13 +6,19 @@
   "directories": {
     "test": "tests"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
     "docker": "docker-compose up -d",
     "stop": "docker-compose down",
     "aws_auth": "aws sso login --profile dev-sso",
-    "check_docker": "docker ps -a"
+    "check_docker": "docker ps -a",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
