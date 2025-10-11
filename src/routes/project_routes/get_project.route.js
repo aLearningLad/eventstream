@@ -10,7 +10,7 @@ router.get("/api/v1/event/:event_id", async (req, res) => {
     return res.status(400).json({ message: "No request payload found" });
   }
   const { event_id } = req.params;
-  const { user_id, organizer_id } = req.body;
+  const { organizer_id } = req.body;
 
   if (!event_id) {
     return res.status(400).json({ message: "No event id found in params" });
@@ -27,10 +27,16 @@ router.get("/api/v1/event/:event_id", async (req, res) => {
     const { data: combined_sql_data, error: combined_sql_data_error } =
       await postgresql
         .from("events")
-        .select(`*, event_metadata_links(*), waitlist(*), tickets(*)`);
+        .select(`*, event_metadata_links(*), waitlist(*), tickets(*)`)
+        .eq("event_id", event_id);
+    // .eq("organizer_id", organizer_id);
 
     if (combined_sql_data_error) {
       throw new Error(combined_sql_data_error);
+    }
+
+    if (combined_sql_data.length === 0) {
+      return res.status(200).json({ message: "No data found for this user" });
     }
 
     // 2. fetch mongo metadata
@@ -38,7 +44,16 @@ router.get("/api/v1/event/:event_id", async (req, res) => {
     // 3. fetch aws s3 media
 
     console.log("The requested data here: ", combined_sql_data);
-    res.status(200).json({ success: "Data found" });
+    console.log(
+      "metadata links data here: ",
+      combined_sql_data[0].event_metadata_links
+    );
+
+    return res.status(200).json({
+      success: "Data found",
+      core_event_data: combined_sql_data,
+      media_files: "coming soon",
+    });
   } catch (error) {
     console.error("Unable to fetch project data: ", error);
     return res.status(500).json({ message: "Unable to fetch project data" });
