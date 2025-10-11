@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 // so let user sign in first, otherwise my response is a 401 due to auth middleware bruuuuh
 let cookies;
 beforeAll(async () => {
-  const res = (await request(app).post("/api/v1/sign-in")).setEncoding({
+  const res = (await request(app).post("/api/v1/sign-in")).send({
     email: "test1@gmail.com",
     password: "bruuuv12&87",
   });
