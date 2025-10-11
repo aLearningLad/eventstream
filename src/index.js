@@ -23,6 +23,9 @@ const {
   uploadProjectRoute,
 } = require("./routes/project_routes/upload_project.route");
 const { attendeeSignUpRoute } = require("./routes/attendee_routes/sign_up");
+const {
+  joinWaitingListRoute,
+} = require("./routes/attendee_routes/join_waitlist");
 const db = db_client;
 
 // app instance
@@ -102,3 +105,6 @@ app.use(uploadNewMediaRoute);
 
 // attendee sign up
 app.use(attendeeSignUpRoute);
+
+// attendee join waiting list
+app.use(joinWaitingListRoute);
