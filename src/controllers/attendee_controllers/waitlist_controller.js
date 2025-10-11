@@ -1,3 +1,6 @@
+const db_client = require("../../config/postgresql/client");
+const db = db_client;
+
 const waitListController = async (req, res) => {
   if (!req.body) {
     return res.status(400).json({ message: "No request payload sent" });
@@ -22,3 +25,5 @@ const waitListController = async (req, res) => {
   }
   return res.status(201).json({ success: "Subscribed to waiting list" });
 };
+
+module.exports = waitListController;

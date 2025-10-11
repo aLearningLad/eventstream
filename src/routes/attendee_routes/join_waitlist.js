@@ -1,6 +1,5 @@
+const waitListController = require("../../controllers/attendee_controllers/waitlist_controller");
 const ensureAuth = require("../../middleware/is_authenticated");
-const db_client = require("../../config/postgresql/client");
-const db = db_client;
 
 const router = require("express").Router();
 
