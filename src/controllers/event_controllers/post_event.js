@@ -51,7 +51,7 @@ const postEvent = async (req, res) => {
         .status(201)
         .json({ success: "New event details sent to kafka" });
     } else {
-      return res
+      res
         .status(500)
         .json({ message: "Unable to send event payload to Kafka" });
     }
