@@ -5,13 +5,10 @@ const app = require("../../src/app");
 const request = require("supertest");
 
 describe("Auth endpoint", () => {
-  it("User should be able to sign in and recieve confirmation", async () => {
-    const res = await request(app).post("/api/v1/sign-in").send({
-      // ---> supertest has a dedicated auth method. I need to check docs
-      email: "bombaclaat@gmail.com",
-      password: "test12345",
-    });
+  it("User should be able to sign out and recieve confirmation", async () => {
+    const res = await request(app).post("/api/v1/sign-out");
 
     expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual({ message: "Logged Out" });
   });
 });
