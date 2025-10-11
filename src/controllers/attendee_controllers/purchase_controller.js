@@ -1,5 +1,5 @@
-const db = sql;
 const sql = require("../../config/postgresql/client");
+const db = sql;
 
 const purchaseController = async (req, res) => {
   if (!req.body) {
