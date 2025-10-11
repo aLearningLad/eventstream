@@ -14,17 +14,15 @@ router.get("/api/v1/event/:event_id", async (req, res) => {
   }
 
   if (!organizer_id) {
+    console.error("Missing fields");
     return res.status(400).json({ message: "Missing fields" });
   }
 
-  // pass event id to producer
-  const result = await fetchProjectProducer({ event_id, organizer_id });
+  // 1. fetch postresql data ---> events, waitlist, events_metadata_links
 
-  if (result === 400) {
-    return res.status(400).json({ message: "Unable to fetch event data" });
-  }
+  // 2. fetch mongo metadata
 
-  res.status(200).json({ success: "Event data retrieved" });
+  // 3. fetch aws s3 media
 });
 
 module.exports = { retrieveProjectRoute: router };
