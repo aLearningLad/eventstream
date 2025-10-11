@@ -108,3 +108,6 @@ app.use(attendeeSignUpRoute);
 
 // attendee join waiting list
 app.use(joinWaitingListRoute);
+
+// organizer retrieve all event info
+app.use(retrieveProjectRoute);
