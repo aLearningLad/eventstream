@@ -19,7 +19,7 @@ Handles authentication, ticket sales, metadata storage, and image uploads — de
 ### :one: Clone and install
 ```
 git clone https://github.com/aLearningLad/eventstream.git
-cd eventstream-api
+cd eventstream
 npm install
 ```
 
@@ -41,4 +41,9 @@ TEMP_AWS_SECRET_ACCESS_KEY=
 AWS_SESSION_TOKEN=
 
 ```
+### :three: Run Locally
+```
+npm run dev
+```
+💡 * Make sure your PostgreSQL, MongoDB and Kafka services are running locally or accessible remotely *
 
