@@ -62,7 +62,9 @@ npm run dev
 | ```/api/v1/event/:event_id```    | GET     |     Pull combined data for a specified event       |   ✅       |
 | ```/api/v1/attendee/buy-ticket/:event_id```    | POST     |    Purchase a ticket       |   ✅       |
 
-# 🔗 *[Full endpoint docs](https://instagram.com)*
+### 🔗 *<a href="https://instagram.com" target="_blank">Full Endpoint Docs</a>*
+
+
 
 
 
