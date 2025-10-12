@@ -24,7 +24,7 @@ npm install
 ```
 
 ### :two: Environment Variables
-Create an .env file at the root of your project set up your credentials
+Create an .env file at the root of your project & set up your credentials
 ```
 SUPABASE_PASSWORD=
 POSTGRESQL_ANON_KEY=
@@ -52,5 +52,9 @@ npm run dev
 | **Route**          | **Method**             | **Description**  | **Auth** |
 |---------------------|----------------------------|-----------------|----------|
 | ```/api/v1/sign-up```    | POST     |       Register a new organizer          |   :x:       |
+| ```/api/v1/attendee/sign-up```    | POST     |       Register a new ticket buyer          |   :x:       |
+| ```/api/v1/sign-in```    | POST     |       Register a new ticket buyer          |   :x:       |
+| ```/api/v1/event```    | POST     |       Upload only core event data         |   ✅       |
+
 
 
