@@ -1,5 +1,6 @@
-###EventStream API
+# EventStream API
 
-##A distributed event management backend built with Express.js, Kafka, PostgreSQL, MongoDB, and AWS S3.
+## A distributed event management backend built with Express.js, Kafka, PostgreSQL, MongoDB, and AWS S3.
 Handles authentication, ticket sales, metadata storage, and image uploads — designed for scalability and clarity.
+
 
