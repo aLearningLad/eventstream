@@ -86,6 +86,10 @@ npm run dev
     "success": "New event details sent to kafka"
 }
 ```
+## Kafka Topics
+| **Topic**          | **Description**             | **Consumer role**  |
+|---------------------|----------------------------|-----------------|
+| ```upload-event```    | Producer triggered when new core event data is uploaded by a registered  organizer   |      Uploads core event data PostgreSQL tables         | 
 
 
 
