@@ -23,3 +23,22 @@ cd eventstream-api
 npm install
 ```
 
+### :two: Environment Variables
+Create an .env file at the root of your project set up your credentials
+```
+SUPABASE_PASSWORD=
+POSTGRESQL_ANON_KEY=
+POSTGRESQL_DB_URL=
+PASSPORT_KEY=
+AWS_S3_BUCKET_NAME=
+AWS_APP_ACCESS_KEY=
+AWS_APP_SECRET_ACCESS_KEY=
+AWS_ACCESS_PORTAL_URL=
+AWS_ISSUER_URL=
+AWS_REGION=
+AWS_ACCESS_KEY_ID=
+TEMP_AWS_SECRET_ACCESS_KEY=
+AWS_SESSION_TOKEN=
+
+```
+
