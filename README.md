@@ -62,7 +62,30 @@ npm run dev
 | ```/api/v1/event/:event_id```    | GET     |     Pull combined data for a specified event       |   ✅       |
 | ```/api/v1/attendee/buy-ticket/:event_id```    | POST     |    Purchase a ticket       |   ✅       |
 
-### 🔗 *<a href="https://instagram.com" target="_blank">Full Endpoint Docs</a>*
+### 🔗 *[Full Endpoint Docs](https://www.bugatti.com)*
+
+## Example Request
+```
+*POST /events*
+{
+     "organizer_id" : 7826,
+    "title" : "Coke festival",
+    "description" : "Same as fanta, but for coke heads this time!",
+    "location" : "Paarl, ZA",
+    "start_time" : "2020-06-22 19:10:25-07",
+    "end_time" : "2020-06-22 19:10:25-07",
+    "price" : 7400,
+    "capacity" : 4000,
+    "date": "2026-06-22"
+}
+```
+
+## Example Response
+```
+{
+    "success": "New event details sent to kafka"
+}
+```
 
 
 
