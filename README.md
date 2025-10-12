@@ -55,6 +55,10 @@ npm run dev
 | ```/api/v1/attendee/sign-up```    | POST     |       Register a new ticket buyer          |   :x:       |
 | ```/api/v1/sign-in```    | POST     |       Register a new ticket buyer          |   :x:       |
 | ```/api/v1/event```    | POST     |       Upload only core event data         |   ✅       |
+| ```/api/v1/metadata```    | POST     |       Upload only event metadata         |   ✅       |
+| ```/api/v1/new-media```    | POST     |       Upload only event media         |   ✅       |
+| ```/api/v1/new-project```    | POST     |       Upload an entire project. Core event data, metadata, media files and metadata links across PostgreSQL, MongoDB and AWS S3         |   ✅       |
+
 
 
 
