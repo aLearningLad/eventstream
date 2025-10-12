@@ -50,17 +50,18 @@ npm run dev
 
 ## 🍀API Endpoints
 | **Route**          | **Method**             | **Description**  | **Auth** |
-|---------------------|----------------------------|-----------------|----------|
-| ```/api/v1/sign-up```    | POST     |       Register a new organizer          |   :x:       |
+|---------------------|----------------------------|-----------------|----------|-----------------|
+| ```/api/v1/sign-up```    | POST     |       Register a new organizer          |   :x:       | 
 | ```/api/v1/attendee/sign-up```    | POST     |       Register a new ticket buyer          |   :x:       |
 | ```/api/v1/sign-in```    | POST     |       Register a new ticket buyer          |   :x:       |
 | ```/api/v1/event```    | POST     |       Upload only core event data         |   ✅       |
-| ```/api/v1/metadata```    | POST     |       Upload only event metadata         |   ✅       |
-| ```/api/v1/new-media```    | POST     |       Upload only event media         |   ✅       |
+| ```/api/v1/metadata```    | POST     |       Upload only event metadata (MongoDB)        |   ✅       |
+| ```/api/v1/new-media```    | POST     |       Upload only event media (AWS S3)        |   ✅       |
 | ```/api/v1/new-project```    | POST     |       Upload an entire project. Core event data, metadata, media files and metadata links across PostgreSQL, MongoDB and AWS S3         |   ✅       |
 | ```/api/v1/attendee/join-waiting-list```    | POST     |      Join the waiting list for an event        |   ✅       |
 | ```/api/v1/event/:event_id```    | GET     |     Pull combined data for a specified event       |   ✅       |
-| ```/api/v1/attendee//buy-ticket/:event_id```    | POST     |    Purchase a ticket       |   ✅       |
+| ```/api/v1/attendee/buy-ticket/:event_id```    | POST     |    Purchase a ticket       |   ✅       |
+
 
 
 
