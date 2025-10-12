@@ -13,6 +13,7 @@ Handles authentication, ticket sales, metadata storage, and image uploads — de
 | File Storage       | AWS S3                     |
 | Authentication                | Passport.js                |
 | Middleware              | Rate limiting, Logging, Error handling                |
+| Kafka Containerization             | Docker               |
 
 
 ## 🚀 Getting Started
@@ -90,6 +91,7 @@ npm run dev
 | **Topic**          | **Description**             | **Consumer role**  |
 |---------------------|----------------------------|-----------------|
 | ```upload-event```    | Producer triggered when new core event data is uploaded by a registered  organizer   |      Uploads core event data PostgreSQL tables         | 
+
 
 
 
