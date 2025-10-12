@@ -48,3 +48,9 @@ npm run dev
 💡 *Make sure your PostgreSQL, MongoDB and Kafka services are running locally or accessible remotely*
 
 
+## 🍀API Endpoints
+| **Route**          | **Method**             | **Description**  | **Auth** |
+|---------------------|----------------------------|-----------------|----------|
+| ```/api/v1/sign-up```    | POST     |       Register a new organizer          |   :x:       |
+
+
