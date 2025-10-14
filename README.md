@@ -1,6 +1,6 @@
 # 🧠 EventStream API
 
-## A distributed event management backend built with Express.js, Kafka, PostgreSQL, MongoDB, and AWS S3.
+## A distributed festival management backend built with Express.js, Kafka, PostgreSQL, MongoDB, and AWS S3.
 Handles authentication, ticket sales, metadata storage, and image uploads — designed for scalability and clarity. Implements rate limiting and logging.
 
 
@@ -91,6 +91,7 @@ npm run dev
 | **Topic**          | **Description**             | **Consumer role**  |
 |---------------------|----------------------------|-----------------|
 | ```upload-event```    | Producer triggered when new core event data is uploaded by a registered  organizer   |      Uploads core event data PostgreSQL tables         | 
+
 
 
 
