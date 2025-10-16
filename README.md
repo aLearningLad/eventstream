@@ -106,8 +106,16 @@ npm run test
 * 🌩️ Rate limiting & error handling
 
 ## ☁️ Deployment
-Deployed on Render. PostgreSQL Database is hosted on Supabase, MongoDB on Atlas and AWS S3 on, well, AWS. 😅
+Deployed on Render. PostgreSQL Database is hosted on Supabase, MongoDB on Atlas, and AWS S3 on, well, AWS. 😅
 
+# 🧠 Lessons & Takeaways
+* Learned distributed architecture fundamentals using Kafka
+
+* Implemented multi-database design across SQL & NoSQL
+
+* Deepened understanding of asynchronous messaging
+
+* Practiced real-world authentication and rate limiting
 
 
 
