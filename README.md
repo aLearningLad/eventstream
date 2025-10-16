@@ -91,6 +91,8 @@ npm run dev
 | **Topic**          | **Description**             | **Consumer role**  |
 |---------------------|----------------------------|-----------------|
 | ```upload-event```    | Producer triggered when new core event data is uploaded by a registered  organizer   |      Uploads core event data PostgreSQL tables         | 
+| ```upload-metadata```    | Producer triggered when new metadata is uploaded by a registered  organizer   |      Uploads metadata to a MongoDB cluster, with an ID linking it to it's related core event data on the SQL database         | 
+
 
 
 
