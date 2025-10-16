@@ -97,8 +97,16 @@ npm run dev
 ## 🧪Testing
 ### Run all tests using:
 ```
-np, run test
+npm run test
 ```
+
+### Test Cover:  
+* 🔐 Authentication (sign up, login, protected routes)
+* 💰 Ticket purchase flow
+* 🌩️ Rate limiting & error handling
+
+
+
 
 
 
