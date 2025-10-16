@@ -100,10 +100,13 @@ npm run dev
 npm run test
 ```
 
-### Test Cover:  
+### Tests Cover:  
 * 🔐 Authentication (sign up, login, protected routes)
 * 💰 Ticket purchase flow
 * 🌩️ Rate limiting & error handling
+
+## ☁️ Deployment
+Deployed on Render. PostgreSQL Database is hosted on Supabase, MongoDB on Atlas and AWS S3 on, well, AWS. 😅
 
 
 
