@@ -67,7 +67,7 @@ npm run dev
 
 ## Example Request
 ```
-*POST* /events
+POST /events
 {
      "organizer_id" : 7826,
     "title" : "Coke festival",
@@ -93,6 +93,7 @@ npm run dev
 | ```upload-event```    | Producer triggered when new core event data is uploaded by a registered  organizer   |      Uploads core event data PostgreSQL tables         | 
 | ```upload-metadata```    | Producer triggered when new metadata is uploaded by a registered  organizer   |      Uploads metadata to a MongoDB cluster, with an ID linking it to it's related core event data on the SQL database         | 
 | ```upload-project-event```    | Producer triggered when an organizer creates a new project, including core event data, metadata and media files   |      Uploads event details to PostgreSQL tables, metadata to MongoDB, and media to AWS S3      | 
+| ```purchase-ticket```    | Producer triggered when an authenticated attendee purchases a ticket for an event with a valid event ID. Errors are immediately logged before reaching the producer   |        Core user data is uploaded to relevent PostgreSQL tables    | 
 
 ## 🧪Testing
 ### Run all tests using:
@@ -116,6 +117,7 @@ Deployed on Render. PostgreSQL Database is hosted on Supabase, MongoDB on Atlas,
 * Deepened understanding of asynchronous messaging
 
 * Practiced real-world authentication and rate limiting
+
 
 
 
