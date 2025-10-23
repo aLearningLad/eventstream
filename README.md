@@ -67,7 +67,7 @@ npm run dev
 
 ## Example Request
 ```
-*POST /events*
+*POST* /events
 {
      "organizer_id" : 7826,
     "title" : "Coke festival",
@@ -116,6 +116,7 @@ Deployed on Render. PostgreSQL Database is hosted on Supabase, MongoDB on Atlas,
 * Deepened understanding of asynchronous messaging
 
 * Practiced real-world authentication and rate limiting
+
 
 
 
